@@ -11,7 +11,7 @@ Path_Version_Old="~/$(ls -d ~/${FolderName}* | sort -V | tail -n 2 | xargs basen
 Path_Version_New="~/${FolderName}${Version_New}"
 
 # Check if the source world folder exists
-if [ ! -d "$Path_Version_Old/world" ]; then
+if [ ! -d "${Path_Version_Old}/world" ]; then
     echo "Error: World folder not found in the source modpack. Check Path: $Path_Version_Old"
     exit 1
 fi
