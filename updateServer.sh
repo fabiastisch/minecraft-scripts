@@ -16,7 +16,7 @@ if [ ! -d "${Path_Version_Old}/world" ]; then
 fi
 
 read -p "Input new Version (e.g. 0.40): " Version_New
-Path_Version_New="~/${FolderName}${Version_New}"
+Path_Version_New="${HOME}/${FolderName}${Version_New}"
 
 # Check if the destination modpack folder exists
 if [ ! -d "$Path_Version_New" ]; then
