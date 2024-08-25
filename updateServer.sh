@@ -3,6 +3,18 @@
 # Read Secrets
 source ./.secret
 
+output=$(./installNewestVersion.sh)
+
+exit_code=$?
+# Display script echos
+echo "$output"
+
+if [ $exit_code -ne 0 ]; then
+        echo "installNewestVersion failed with exit code $exit_code"
+        exit 1
+fi
+
+
 # Set the paths for the source and destination modpacks
 FolderName="Server-Files-"
 # Get the newes matching Server-Files Folder (e.g. Server-Files 0.38)
@@ -15,9 +27,8 @@ if [ ! -d "${Path_Version_Old}/world" ]; then
     exit 1
 fi
 
-read -p "Input new Version (e.g. 0.40): " Version_New
-Path_Version_New="${HOME}/${FolderName}${Version_New}"
-
+#read -p "Input new Version (e.g. 0.40): " Version_New
+Path_Version_New="$(ls -d ~/${FolderName}* | sort -V | tail -n 1 | head -n 1)"
 # Check if the destination modpack folder exists
 if [ ! -d "$Path_Version_New" ]; then
     echo "Error: Destination modpack folder not found. (${Path_Version_New}"
@@ -42,7 +53,7 @@ else
 fi
 
 
-copy_file_to_path() {
+copy_file_to_path_internal() {
     local source="${Path_Version_Old}/${1}"
     local destination="$Path_Version_New"
 
@@ -65,6 +76,13 @@ copy_file_to_path() {
     else
         echo "Error: Failed to copy '$source' to '$destination'."
         return 1
+    fi
+}
+copy_file_to_path(){
+    copy_file_to_path_internal $1
+    if [ $? -ne 0 ]; then
+        echo "copy_file_to_path_internal failed for argument: ${1}"
+        exit 1
     fi
 }
 
@@ -90,4 +108,4 @@ EOF
   curl -H "Content-Type: application/json" -X POST -d "$payload" $WEBHOOK_URL
 }
 
-send_discord_notification "Update to new Version: $Version_New"
+send_discord_notification "Update to new Version: $Path_Version_New"
