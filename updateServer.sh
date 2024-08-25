@@ -7,12 +7,12 @@ source ./.secret
 Version_New=$1
 FolderName="Server-Files-"
 # Get the newes matching Server-Files Folder (e.g. Server-Files 0.38)
-Path_Version_Old="~/$(ls -d ~/${FolderName}* | sort -V | tail -n 1 | xargs basename)"
+Path_Version_Old="~/$(ls -d ~/${FolderName}* | sort -V | tail -n 2 | xargs basename)"
 Path_Version_New="~/${FolderName}${Version_New}"
 
 # Check if the source world folder exists
 if [ ! -d "$Path_Version_Old/world" ]; then
-    echo "Error: World folder not found in the source modpack."
+    echo "Error: World folder not found in the source modpack. Check Path: $Path_Version_Old"
     exit 1
 fi
 
