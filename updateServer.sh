@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Read Secrets
-source ./secret
+source ./.secret
 
 # Set the paths for the source and destination modpacks
 Version_Old="./Server-Files-0.36"
