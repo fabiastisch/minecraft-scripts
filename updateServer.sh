@@ -4,29 +4,32 @@
 source ./.secret
 
 # Set the paths for the source and destination modpacks
-Version_Old="./Server-Files-0.36"
-Version_New="./Server-Files-0.38"
+Version_New=$1
+FolderName="Server-Files-"
+# Get the newes matching Server-Files Folder (e.g. Server-Files 0.38)
+Path_Version_Old="~/$(ls -d ~/${FolderName}* | sort -V | tail -n 1 | xargs basename)"
+Path_Version_New="~/${FolderName}${Version_New}"
 
 # Check if the source world folder exists
-if [ ! -d "$Version_Old/world" ]; then
+if [ ! -d "$Path_Version_Old/world" ]; then
     echo "Error: World folder not found in the source modpack."
     exit 1
 fi
 
 # Check if the destination modpack folder exists
-if [ ! -d "$Version_New" ]; then
+if [ ! -d "$Path_Version_New" ]; then
     echo "Error: Destination modpack folder not found."
     exit 1
 fi
 
 # Check if the world directory already exists
-if [ -d "$Version_New/world" ]; then
+if [ -d "$Path_Version_New/world" ]; then
     echo "Error: Directory already exitsts in destination."
     exit 1
 fi
 
 # Copy the world folder
-cp -R "$Version_Old/world" "$Version_New/"
+cp -R "$Path_Version_Old/world" "$Path_Version_New/"
 
 # Check if the copy was successful
 if [ $? -eq 0 ]; then
@@ -38,8 +41,8 @@ fi
 
 
 copy_file_to_path() {
-    local source="${Version_Old}/${1}"
-    local destination="$Version_New"
+    local source="${Path_Version_Old}/${1}"
+    local destination="$Path_Version_New"
 
     # Check if source exists
     if [ ! -e "$source" ]; then
