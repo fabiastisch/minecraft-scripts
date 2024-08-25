@@ -31,7 +31,7 @@ if [ -d "$Path_Version_New/world" ]; then
 fi
 
 # Copy the world folder
-cp -R "$Path_Version_Old/world" "$Path_Version_New/"
+sudo cp -R "$Path_Version_Old/world" "$Path_Version_New/"
 
 # Check if the copy was successful
 if [ $? -eq 0 ]; then
@@ -56,7 +56,7 @@ copy_file_to_path() {
     mkdir -p "$destination"
 
     # Copy files
-    cp -R "$source" "$destination"
+    sudo cp -R "$source" "$destination"
 
     # Check if copy was successful
     if [ $? -eq 0 ]; then
