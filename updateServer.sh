@@ -4,17 +4,19 @@
 source ./.secret
 
 # Set the paths for the source and destination modpacks
-Version_New=$1
 FolderName="Server-Files-"
 # Get the newes matching Server-Files Folder (e.g. Server-Files 0.38)
-Path_Version_Old="~/$(ls -d ~/${FolderName}* | sort -V | tail -n 2 | xargs basename)"
-Path_Version_New="~/${FolderName}${Version_New}"
+Path_Version_Old="$(ls -d ~/${FolderName}* | sort -V | tail -n 2 | head -n 1)"
+
 
 # Check if the source world folder exists
 if [ ! -d "${Path_Version_Old}/world" ]; then
     echo "Error: World folder not found in the source modpack. Check Path: $Path_Version_Old"
     exit 1
 fi
+
+read -p "Input new Version (e.g. 0.40)" Version_New
+Path_Version_New="~/${FolderName}${Version_New}"
 
 # Check if the destination modpack folder exists
 if [ ! -d "$Path_Version_New" ]; then
