@@ -15,18 +15,18 @@ if [ ! -d "${Path_Version_Old}/world" ]; then
     exit 1
 fi
 
-read -p "Input new Version (e.g. 0.40)" Version_New
+read -p "Input new Version (e.g. 0.40): " Version_New
 Path_Version_New="~/${FolderName}${Version_New}"
 
 # Check if the destination modpack folder exists
 if [ ! -d "$Path_Version_New" ]; then
-    echo "Error: Destination modpack folder not found."
+    echo "Error: Destination modpack folder not found. (${Path_Version_New}"
     exit 1
 fi
 
 # Check if the world directory already exists
 if [ -d "$Path_Version_New/world" ]; then
-    echo "Error: Directory already exitsts in destination."
+    echo "Error: Directory already exitsts in destination. (${Path_Version_New}/world"
     exit 1
 fi
 
