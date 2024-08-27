@@ -108,4 +108,6 @@ EOF
   curl -H "Content-Type: application/json" -X POST -d "$payload" $WEBHOOK_URL
 }
 
-send_discord_notification "Update to new Version: $Path_Version_New"
+Discord_Notif=$(echo "$Path_Version_New" | tr -cd '0-9.')
+
+send_discord_notification "Update to new Version: $Discord_Notif"
